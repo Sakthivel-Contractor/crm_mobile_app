@@ -383,11 +383,19 @@ class ApiClient {
 
   Future<void> _ping(String url) async {
     try {
+      logDebug('[ping] trying $url/api/method/ping');
       final response = await _dio.get<dynamic>('$url/api/method/ping');
       final data = response.data;
+      logDebug('[ping] response type=${data.runtimeType} data=$data');
       if (data is Map && data['message'] == 'pong') return;
+      if (data is String && data.contains('pong')) return;
     } on DioException catch (e) {
-      if (_isTimeout(e)) throw const AuthException(AuthErrorType.network);
+      logDebug('[ping] DioException type=${e.type} status=${e.response?.statusCode} msg=${e.message}');
+      if (_isNetworkError(e)) {
+        throw const AuthException(AuthErrorType.network);
+      }
+    } catch (e) {
+      logDebug('[ping] unexpected error: $e');
     }
     // Wrong URL, not a Frappe server, unreachable host or CORS failure.
     throw const AuthException(AuthErrorType.serverUnreachable);
