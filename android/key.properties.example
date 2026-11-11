@@ -1,0 +1,6 @@
+# Copy to android/key.properties (git-ignored) and fill in.
+# Never commit key.properties or the .jks file.
+storeFile=C:/Users/<you>/keys/hitech-crm-upload.jks
+storePassword=<keystore password>
+keyAlias=upload
+keyPassword=<key password>

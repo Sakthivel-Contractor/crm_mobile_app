@@ -1,0 +1,770 @@
+{
+  "@@locale": "ta",
+  "appName": "HI Tech CRM",
+  "@appName": {
+    "description": "App name shown on login and in the app bar"
+  },
+  "appSubtitle": "கிணறு ஒப்பந்ததாரர்",
+  "@appSubtitle": {
+    "description": "Subtitle under the app name on the login screen"
+  },
+  "serverUrl": "சர்வர் URL",
+  "@serverUrl": {
+    "description": "Label for the Frappe server URL field"
+  },
+  "serverUrlHint": "https://crm.example.com",
+  "@serverUrlHint": {
+    "description": "Example value shown inside the empty server URL field"
+  },
+  "username": "மின்னஞ்சல் / பயனர் பெயர்",
+  "@username": {
+    "description": "Label for the email / username field"
+  },
+  "password": "கடவுச்சொல்",
+  "@password": {
+    "description": "Label for the password field"
+  },
+  "showPassword": "காட்டு",
+  "@showPassword": {
+    "description": "Tooltip on the eye icon when the password is hidden"
+  },
+  "hidePassword": "மறை",
+  "@hidePassword": {
+    "description": "Tooltip on the eye icon when the password is visible"
+  },
+  "loginButton": "உள்நுழை",
+  "@loginButton": {
+    "description": "Login button text"
+  },
+  "fieldRequired": "இது தேவை",
+  "@fieldRequired": {
+    "description": "Validation error for an empty required field"
+  },
+  "errorServerUnreachable": "சர்வரை அணுக முடியவில்லை. URL-ஐ சரிபார்க்கவும்.",
+  "@errorServerUnreachable": {
+    "description": "Ping to the server failed or did not return pong"
+  },
+  "errorWrongPassword": "தவறான பயனர் பெயர் அல்லது கடவுச்சொல்",
+  "@errorWrongPassword": {
+    "description": "Login returned 401"
+  },
+  "errorNoInternet": "இணைய இணைப்பை சரிபார்க்கவும்",
+  "@errorNoInternet": {
+    "description": "Request timed out or there is no network"
+  },
+  "errorUnknown": "உள்நுழைவு தோல்வியடைந்தது. மீண்டும் முயற்சிக்கவும்.",
+  "@errorUnknown": {
+    "description": "Any other login failure"
+  },
+  "welcomeUser": "வணக்கம், {name}",
+  "@welcomeUser": {
+    "description": "Greeting on the home screen",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Ravi Kumar"
+      }
+    }
+  },
+  "logout": "வெளியேறு",
+  "@logout": {
+    "description": "Tooltip on the logout icon"
+  },
+  "logoutConfirm": "வெளியேறவா?",
+  "@logoutConfirm": {
+    "description": "Title of the logout confirmation dialog"
+  },
+  "yes": "ஆம்",
+  "@yes": {
+    "description": "Confirm button"
+  },
+  "no": "இல்லை",
+  "@no": {
+    "description": "Cancel button"
+  },
+  "languageTamil": "தமிழ்",
+  "@languageTamil": {
+    "description": "Tamil option in the language toggle; always written in Tamil"
+  },
+  "languageEnglish": "EN",
+  "@languageEnglish": {
+    "description": "English option in the language toggle; always 'EN'"
+  },
+  "loginTitle": "உள்நுழைக",
+  "@loginTitle": {
+    "description": "Heading of the login form"
+  },
+  "loginHint": "உங்கள் கணக்கில் உள்நுழையவும்",
+  "@loginHint": {
+    "description": "Muted line under the login heading"
+  },
+  "brandTagline": "கிணறு பணிகள், வாடிக்கையாளர்கள், கட்டணங்கள் — ஒரே இடத்தில்",
+  "@brandTagline": {
+    "description": "One-line tagline on the wide-screen brand panel"
+  },
+  "serverSummary": "சர்வர்: {host}",
+  "@serverSummary": {
+    "description": "Collapsed server row when a URL is saved",
+    "placeholders": {
+      "host": {
+        "type": "String",
+        "example": "crm.example.com"
+      }
+    }
+  },
+  "changeServer": "மாற்று",
+  "@changeServer": {
+    "description": "Action on the collapsed server row that reveals the URL field"
+  },
+  "footerCopyright": "© HI Tech Open Well Contractor",
+  "@footerCopyright": {
+    "description": "Footer text before the app version is known"
+  },
+  "footerWithVersion": "© HI Tech Open Well Contractor · பதிப்பு {version}",
+  "@footerWithVersion": {
+    "description": "Footer with app version",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      }
+    }
+  },
+  "tabToday": "இன்று",
+  "@tabToday": {
+    "description": "Bottom nav: today's work"
+  },
+  "tabLeads": "லீட்கள்",
+  "@tabLeads": {
+    "description": "Bottom nav: leads list"
+  },
+  "tabVisits": "இட ஆய்வு",
+  "@tabVisits": {
+    "description": "Bottom nav: site visits"
+  },
+  "tabProfile": "சுயவிவரம்",
+  "@tabProfile": {
+    "description": "Bottom nav: profile"
+  },
+  "comingSoon": "விரைவில் வருகிறது",
+  "@comingSoon": {
+    "description": "Placeholder for features not built yet"
+  },
+  "comingSoonHint": "இந்தப் பகுதி அடுத்த பதிப்பில் வரும்.",
+  "@comingSoonHint": {
+    "description": "Line under 'Coming soon'"
+  },
+  "leadsTitle": "லீட்கள்",
+  "@leadsTitle": {
+    "description": "Leads screen app bar title"
+  },
+  "search": "தேடு",
+  "@search": {
+    "description": "Tooltip on the search icon"
+  },
+  "closeSearch": "தேடலை மூடு",
+  "@closeSearch": {
+    "description": "Tooltip on the button that closes the search field"
+  },
+  "searchLeadsHint": "பெயர் அல்லது மொபைல் எண்",
+  "@searchLeadsHint": {
+    "description": "Hint inside the leads search field"
+  },
+  "filterAll": "அனைத்தும்",
+  "@filterAll": {
+    "description": "Status filter chip that shows every lead"
+  },
+  "noLeads": "லீட் எதுவும் இல்லை",
+  "@noLeads": {
+    "description": "Empty state title"
+  },
+  "noLeadsHint": "வேறு வடிகட்டி அல்லது தேடலை முயற்சிக்கவும்.",
+  "@noLeadsHint": {
+    "description": "Empty state hint"
+  },
+  "retry": "மீண்டும் முயற்சி",
+  "@retry": {
+    "description": "Retry button on error states"
+  },
+  "loginAgain": "மீண்டும் உள்நுழை",
+  "@loginAgain": {
+    "description": "Button shown when the session has expired"
+  },
+  "errorUnauthorized": "அமர்வு காலாவதியானது அல்லது அனுமதி இல்லை. மீண்டும் உள்நுழையவும்.",
+  "@errorUnauthorized": {
+    "description": "401/403 from the server"
+  },
+  "errorServer": "சர்வரில் பிழை. சிறிது நேரம் கழித்து முயற்சிக்கவும்.",
+  "@errorServer": {
+    "description": "5xx or unexpected server response"
+  },
+  "errorGeneric": "ஏதோ தவறு நடந்தது. மீண்டும் முயற்சிக்கவும்.",
+  "@errorGeneric": {
+    "description": "Any other data error"
+  },
+  "loadMoreFailed": "மேலும் ஏற்ற முடியவில்லை",
+  "@loadMoreFailed": {
+    "description": "Footer when loading the next page failed"
+  },
+  "newLead": "புதிய லீட்",
+  "@newLead": {
+    "description": "Tooltip on the add-lead button"
+  },
+  "unnamedLead": "பெயரில்லா லீட்",
+  "@unnamedLead": {
+    "description": "Shown when a lead has no name"
+  },
+  "leadDetailComingSoon": "முழு விவரங்கள் அடுத்த பதிப்பில் வரும்.",
+  "@leadDetailComingSoon": {
+    "description": "Lead detail placeholder"
+  },
+  "timeJustNow": "இப்போது",
+  "@timeJustNow": {
+    "description": "Relative time under 1 minute"
+  },
+  "timeMinutesAgo": "{count} நிமிடம் முன்",
+  "@timeMinutesAgo": {
+    "description": "Relative time in minutes",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timeHoursAgo": "{count} மணி நேரம் முன்",
+  "@timeHoursAgo": {
+    "description": "Relative time in hours",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timeDaysAgo": "{count} நாள் முன்",
+  "@timeDaysAgo": {
+    "description": "Relative time in days",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statusNew": "புதியது",
+  "@statusNew": {
+    "description": "Default Frappe CRM lead status 'New'"
+  },
+  "statusContacted": "தொடர்பு கொண்டது",
+  "@statusContacted": {
+    "description": "Default lead status 'Contacted'"
+  },
+  "statusNurture": "பின்தொடர்தல்",
+  "@statusNurture": {
+    "description": "Default lead status 'Nurture'"
+  },
+  "statusQualified": "தகுதியானது",
+  "@statusQualified": {
+    "description": "Default lead status 'Qualified'"
+  },
+  "statusUnqualified": "தகுதியற்றது",
+  "@statusUnqualified": {
+    "description": "Default lead status 'Unqualified'"
+  },
+  "statusJunk": "பயனற்றது",
+  "@statusJunk": {
+    "description": "Default lead status 'Junk'"
+  },
+  "profileServer": "சர்வர்",
+  "@profileServer": {
+    "description": "Profile row: server URL"
+  },
+  "profileLanguage": "மொழி",
+  "@profileLanguage": {
+    "description": "Profile row: language toggle"
+  },
+  "profileVersion": "பதிப்பு",
+  "@profileVersion": {
+    "description": "Profile row: app version"
+  },
+  "callAction": "அழை",
+  "@callAction": {
+    "description": "Button that opens the phone dialer"
+  },
+  "whatsappAction": "WhatsApp",
+  "@whatsappAction": {
+    "description": "Button that opens WhatsApp chat"
+  },
+  "couldNotOpenApp": "செயலியைத் திறக்க முடியவில்லை",
+  "@couldNotOpenApp": {
+    "description": "url_launcher failed"
+  },
+  "leadStatusSection": "நிலை",
+  "@leadStatusSection": {
+    "description": "Section title for status chips on lead detail"
+  },
+  "changeStatusConfirm": "நிலையை \"{status}\" என மாற்றவா?",
+  "@changeStatusConfirm": {
+    "description": "Confirm dialog before changing lead status",
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "statusUpdated": "நிலை புதுப்பிக்கப்பட்டது",
+  "@statusUpdated": {
+    "description": "SnackBar after status change"
+  },
+  "logCallTitle": "அழைப்பைப் பதிவு செய்",
+  "@logCallTitle": {
+    "description": "Card title for logging a call"
+  },
+  "callOutcome": "அழைப்பு முடிவு",
+  "@callOutcome": {
+    "description": "Label above outcome chips"
+  },
+  "outcomeTalked": "பேசியாச்சு",
+  "@outcomeTalked": {
+    "description": "Call outcome"
+  },
+  "outcomeNoAnswer": "எடுக்கவில்லை",
+  "@outcomeNoAnswer": {
+    "description": "Call outcome"
+  },
+  "outcomeBusy": "பிஸி",
+  "@outcomeBusy": {
+    "description": "Call outcome"
+  },
+  "outcomeWrongNumber": "தவறான எண்",
+  "@outcomeWrongNumber": {
+    "description": "Call outcome"
+  },
+  "outcomeRequired": "அழைப்பு முடிவைத் தேர்ந்தெடுக்கவும்",
+  "@outcomeRequired": {
+    "description": "Validation when no outcome is chosen"
+  },
+  "callNoteLabel": "குறிப்பு (விருப்பம்)",
+  "@callNoteLabel": {
+    "description": "Label for the call note field"
+  },
+  "callNoteHint": "என்ன பேசினீர்கள்?",
+  "@callNoteHint": {
+    "description": "Hint inside the call note field"
+  },
+  "nextFollowUp": "அடுத்த பின்தொடர்தல்",
+  "@nextFollowUp": {
+    "description": "Label for the follow-up date/time"
+  },
+  "changeFollowUp": "தேதி/நேரத்தை மாற்று",
+  "@changeFollowUp": {
+    "description": "Semantics label of the follow-up picker button"
+  },
+  "noFollowUpForWrongNumber": "தவறான எண்ணுக்கு பின்தொடர்தல் உருவாக்கப்படாது.",
+  "@noFollowUpForWrongNumber": {
+    "description": "Shown instead of the date picker for wrong number"
+  },
+  "save": "சேமி",
+  "@save": {
+    "description": "Save button"
+  },
+  "saved": "சேமிக்கப்பட்டது",
+  "@saved": {
+    "description": "SnackBar after saving a call"
+  },
+  "upcomingFollowUp": "வரவிருக்கும் பின்தொடர்தல்",
+  "@upcomingFollowUp": {
+    "description": "Card title for the next open task"
+  },
+  "overdue": "தாமதம்",
+  "@overdue": {
+    "description": "Badge for a task past its due date"
+  },
+  "noUpcomingFollowUp": "திட்டமிட்ட பின்தொடர்தல் இல்லை",
+  "@noUpcomingFollowUp": {
+    "description": "Shown when the lead has no open task"
+  },
+  "noDueDate": "தேதி இல்லை",
+  "@noDueDate": {
+    "description": "Open task without a due date"
+  },
+  "historyTitle": "வரலாறு",
+  "@historyTitle": {
+    "description": "Section title for notes"
+  },
+  "noNotes": "இன்னும் குறிப்புகள் இல்லை",
+  "@noNotes": {
+    "description": "Empty notes list"
+  },
+  "callNoteTitle": "அழைப்பு: {outcome}",
+  "@callNoteTitle": {
+    "description": "Localized display of a 'Call: <outcome>' note title",
+    "placeholders": {
+      "outcome": {
+        "type": "String"
+      }
+    }
+  },
+  "followUpTaskTitle": "பின்தொடர் அழைப்பு",
+  "@followUpTaskTitle": {
+    "description": "Localized display of the 'Follow-up call' task title"
+  },
+  "statTotal": "மொத்தம்",
+  "@statTotal": {
+    "description": "Today summary tile: all items"
+  },
+  "statNew": "புதியவை",
+  "@statNew": {
+    "description": "Today summary tile / filter: new leads not yet called"
+  },
+  "filterDueToday": "இன்று",
+  "@filterDueToday": {
+    "description": "Today filter chip: follow-ups due later today"
+  },
+  "chipWithCount": "{label} ({count})",
+  "@chipWithCount": {
+    "description": "Filter chip label with a count",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "daysLate": "{count, plural, =1{1 நாள் தாமதம்} other{{count} நாள் தாமதம்}}",
+  "@daysLate": {
+    "description": "Badge on an overdue follow-up",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "newBadge": "புதிய",
+  "@newBadge": {
+    "description": "Badge on a new lead in the Today list"
+  },
+  "noCallsToday": "இன்று அழைக்க யாரும் இல்லை",
+  "@noCallsToday": {
+    "description": "Today empty state"
+  },
+  "noCallsTodayHint": "எல்லாம் முடிந்தது!",
+  "@noCallsTodayHint": {
+    "description": "Line under the Today empty state"
+  },
+  "todayPendingCount": "{count} அழைப்புகள் நிலுவையில்",
+  "@todayPendingCount": {
+    "description": "Screen-reader label of the Today tab badge",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "offlineBanner": "இணைய இணைப்பு இல்லை. நீங்கள் இன்னும் உள்நுழைந்தே உள்ளீர்கள்.",
+  "@offlineBanner": {
+    "description": "Shown at app start when the server can't be reached but the saved login is kept"
+  },
+  "tabDashboard": "டாஷ்போர்டு",
+  "@tabDashboard": {
+    "description": "Bottom nav + app bar: dashboard"
+  },
+  "periodToday": "இன்று",
+  "@periodToday": {
+    "description": "Dashboard period: today"
+  },
+  "periodWeek": "இந்த வாரம்",
+  "@periodWeek": {
+    "description": "Dashboard period: this week (Mon–Sun)"
+  },
+  "periodMonth": "இந்த மாதம்",
+  "@periodMonth": {
+    "description": "Dashboard period: this month"
+  },
+  "periodCustom": "தனிப்பயன்",
+  "@periodCustom": {
+    "description": "Dashboard period: pick a date range"
+  },
+  "dateRange": "{from} – {to}",
+  "@dateRange": {
+    "description": "Custom period chip once a range is picked",
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "kpiTotalLeads": "மொத்த லீட்கள்",
+  "@kpiTotalLeads": {
+    "description": "KPI tile"
+  },
+  "kpiSiteVisits": "இட ஆய்வுகள்",
+  "@kpiSiteVisits": {
+    "description": "KPI tile"
+  },
+  "kpiCallsLogged": "பதிவான அழைப்புகள்",
+  "@kpiCallsLogged": {
+    "description": "KPI tile"
+  },
+  "kpiOverdue": "தாமதமான பின்தொடர்தல்கள்",
+  "@kpiOverdue": {
+    "description": "KPI tile (red); not limited to the period"
+  },
+  "kpiUnavailable": "கிடைக்கவில்லை",
+  "@kpiUnavailable": {
+    "description": "KPI value when the server has no such data"
+  },
+  "chartFunnel": "லீட் நிலைகள்",
+  "@chartFunnel": {
+    "description": "Chart title: leads per status"
+  },
+  "chartSource": "மூலம் வாரியாக",
+  "@chartSource": {
+    "description": "Chart title: leads per source"
+  },
+  "chartDistrict": "மாவட்டம் வாரியாக",
+  "@chartDistrict": {
+    "description": "Chart title: leads per district"
+  },
+  "chartOther": "மற்றவை",
+  "@chartOther": {
+    "description": "Bar that sums the remaining districts"
+  },
+  "chartNotSet": "குறிப்பிடப்படவில்லை",
+  "@chartNotSet": {
+    "description": "Bar for leads with an empty value"
+  },
+  "chartNoData": "இந்தக் காலத்தில் தரவு இல்லை",
+  "@chartNoData": {
+    "description": "Empty chart"
+  },
+  "chartUnavailable": "இந்தத் தகவல் சர்வரில் இல்லை",
+  "@chartUnavailable": {
+    "description": "Chart whose field/doctype is missing on the server"
+  },
+  "barValue": "{count} ({percent}%)",
+  "@barValue": {
+    "description": "Value label on a bar",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "updatedAt": "புதுப்பிக்கப்பட்டது {time}",
+  "@updatedAt": {
+    "description": "Last refresh time at the bottom of the dashboard",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "filterSourceChip": "மூலம்: {value}",
+  "@filterSourceChip": {
+    "description": "Active source filter chip on Leads",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "filterDistrictChip": "மாவட்டம்: {value}",
+  "@filterDistrictChip": {
+    "description": "Active district filter chip on Leads",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "clearFilter": "வடிகட்டியை நீக்கு",
+  "@clearFilter": {
+    "description": "Screen-reader hint on a removable filter chip"
+  },
+  "errorInsecureUrl": "பாதுகாப்பான https:// முகவரியை உள்ளிடவும்",
+  "@errorInsecureUrl": {
+    "description": "Server URL is not https"
+  },
+  "blockScreenshots": "விவரத் திரையில் ஸ்கிரீன்ஷாட்டைத் தடு",
+  "@blockScreenshots": {
+    "description": "Profile setting (Android FLAG_SECURE)"
+  },
+  "blockScreenshotsHint": "வாடிக்கையாளர் விவரங்களை ஸ்கிரீன்ஷாட் மற்றும் திரைப் பதிவிலிருந்து பாதுகாக்கும்",
+  "@blockScreenshotsHint": {
+    "description": "Explanation under the screenshot setting"
+  },
+  "notifications": "அறிவிப்புகள்",
+  "@notifications": {
+    "description": "Profile row title"
+  },
+  "notificationsOn": "இயக்கத்தில்",
+  "@notificationsOn": {
+    "description": "Notification status"
+  },
+  "notificationsOff": "முடக்கத்தில்",
+  "@notificationsOff": {
+    "description": "Notification status"
+  },
+  "openSettings": "அமைப்புகள்",
+  "@openSettings": {
+    "description": "Button that opens the system notification settings"
+  },
+  "channelNewLeads": "புதிய லீட்கள்",
+  "@channelNewLeads": {
+    "description": "Android notification channel name"
+  },
+  "channelNewLeadsDescription": "புதிய லீட் வந்தவுடன் தெரிவிக்கும்",
+  "@channelNewLeadsDescription": {
+    "description": "Android notification channel description"
+  },
+  "notificationsOffTitle": "அறிவிப்புகள் முடக்கப்பட்டுள்ளன",
+  "@notificationsOffTitle": {
+    "description": "Today info card title when permission was denied"
+  },
+  "notificationsOffBody": "புதிய லீட்கள் வந்தவுடன் தெரிந்துகொள்ள அறிவிப்புகளை இயக்கவும்.",
+  "@notificationsOffBody": {
+    "description": "Today info card text"
+  },
+  "enableNotifications": "அறிவிப்புகளை இயக்கு",
+  "@enableNotifications": {
+    "description": "Today info card button"
+  },
+  "dismiss": "மூடு",
+  "@dismiss": {
+    "description": "Close button on an info card"
+  },
+  "appLock": "செயலி பூட்டு",
+  "@appLock": {
+    "description": "Profile setting: lock the app with a PIN"
+  },
+  "appLockHint": "செயலியைத் திறக்கும்போது PIN கேட்கும்",
+  "@appLockHint": {
+    "description": "Explanation under the app lock setting"
+  },
+  "useBiometric": "கைரேகை மூலம் திற",
+  "@useBiometric": {
+    "description": "Profile setting: fingerprint / face unlock"
+  },
+  "useBiometricHint": "PIN-க்குப் பதிலாக கைரேகை அல்லது முகத்தைப் பயன்படுத்தலாம்",
+  "@useBiometricHint": {
+    "description": "Explanation under the fingerprint setting"
+  },
+  "changePin": "PIN-ஐ மாற்று",
+  "@changePin": {
+    "description": "Profile row button"
+  },
+  "change": "மாற்று",
+  "@change": {
+    "description": "Short button that opens the change-PIN screen"
+  },
+  "createPinTitle": "{length} இலக்க PIN-ஐ அமைக்கவும்",
+  "@createPinTitle": {
+    "description": "PIN setup step 1",
+    "placeholders": {
+      "length": {
+        "type": "int"
+      }
+    }
+  },
+  "confirmPinTitle": "PIN-ஐ மீண்டும் உள்ளிடவும்",
+  "@confirmPinTitle": {
+    "description": "PIN setup step 2"
+  },
+  "pinMismatch": "PIN பொருந்தவில்லை. மீண்டும் அமைக்கவும்.",
+  "@pinMismatch": {
+    "description": "PIN setup error"
+  },
+  "enterCurrentPin": "தற்போதைய PIN-ஐ உள்ளிடவும்",
+  "@enterCurrentPin": {
+    "description": "Before turning off or changing the PIN"
+  },
+  "unlockTitle": "திறக்க PIN-ஐ உள்ளிடவும்",
+  "@unlockTitle": {
+    "description": "Lock screen title"
+  },
+  "wrongPin": "தவறான PIN. இன்னும் {count} முறை முயலலாம்",
+  "@wrongPin": {
+    "description": "Lock screen error",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pinBlocked": "பல முறை தவறு. {seconds} வினாடிகளில் மீண்டும் முயலவும்",
+  "@pinBlocked": {
+    "description": "Lock screen wait message",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "forgotPin": "PIN மறந்துவிட்டதா?",
+  "@forgotPin": {
+    "description": "Lock screen link"
+  },
+  "forgotPinBody": "நீங்கள் வெளியேற்றப்படுவீர்கள். உங்கள் கடவுச்சொல்லுடன் மீண்டும் உள்நுழைந்து புதிய PIN-ஐ அமைக்கலாம்.",
+  "@forgotPinBody": {
+    "description": "Forgot-PIN confirmation text"
+  },
+  "cancel": "ரத்து செய்",
+  "@cancel": {
+    "description": "Cancel button"
+  },
+  "biometricPromptTitle": "HI Tech CRM-ஐத் திற",
+  "@biometricPromptTitle": {
+    "description": "System fingerprint prompt title"
+  },
+  "biometricPromptReason": "இது நீங்கள்தான் என உறுதிசெய்யவும்",
+  "@biometricPromptReason": {
+    "description": "System fingerprint prompt text"
+  },
+  "biometricButton": "கைரேகையைப் பயன்படுத்து",
+  "@biometricButton": {
+    "description": "Lock screen fingerprint button"
+  },
+  "biometricLockedOut": "கைரேகை தற்காலிகமாகப் பூட்டப்பட்டது. PIN-ஐப் பயன்படுத்தவும்.",
+  "@biometricLockedOut": {
+    "description": "Too many fingerprint tries"
+  },
+  "biometricNotAvailable": "இந்த போனில் கைரேகை அமைக்கப்படவில்லை",
+  "@biometricNotAvailable": {
+    "description": "Fingerprint unavailable"
+  },
+  "biometricFailed": "கைரேகை உறுதிசெய்யப்படவில்லை",
+  "@biometricFailed": {
+    "description": "Fingerprint check failed"
+  },
+  "deleteDigit": "நீக்கு",
+  "@deleteDigit": {
+    "description": "Screen-reader label of the keypad delete key"
+  },
+  "pinDigitsEntered": "{total} இல் {count} இலக்கங்கள்",
+  "@pinDigitsEntered": {
+    "description": "Screen-reader label of the PIN dots",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "appLockOn": "செயலி பூட்டு இயக்கப்பட்டது",
+  "@appLockOn": {
+    "description": "Snackbar after setting a PIN"
+  },
+  "pinChanged": "PIN மாற்றப்பட்டது",
+  "@pinChanged": {
+    "description": "Snackbar after changing the PIN"
+  }
+}
