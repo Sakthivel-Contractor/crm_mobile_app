@@ -452,6 +452,18 @@ abstract class AppLocalizations {
   /// **'வாடிக்கையாளர் / லீட் பெயர் *'**
   String get visitClientLeadName;
 
+  /// Search field for the required linked CRM Lead
+  ///
+  /// In ta, this message translates to:
+  /// **'லீட்டைத் தேர்ந்தெடுக்கவும் *'**
+  String get visitSelectLead;
+
+  /// Validation when no linked CRM Lead was selected
+  ///
+  /// In ta, this message translates to:
+  /// **'தேடல் முடிவிலிருந்து ஒரு லீட்டைத் தேர்ந்தெடுக்கவும்'**
+  String get visitLeadRequired;
+
   /// Required mobile number
   ///
   /// In ta, this message translates to:

@@ -200,6 +200,13 @@ class AppLocalizationsTa extends AppLocalizations {
   String get visitClientLeadName => 'வாடிக்கையாளர் / லீட் பெயர் *';
 
   @override
+  String get visitSelectLead => 'லீட்டைத் தேர்ந்தெடுக்கவும் *';
+
+  @override
+  String get visitLeadRequired =>
+      'தேடல் முடிவிலிருந்து ஒரு லீட்டைத் தேர்ந்தெடுக்கவும்';
+
+  @override
   String get visitMobileRequired => 'கைபேசி எண் *';
 
   @override

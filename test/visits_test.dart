@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:hitech_crm_app/app/theme.dart';
+import 'package:hitech_crm_app/features/leads/lead_model.dart';
+import 'package:hitech_crm_app/features/leads/lead_repository.dart';
 import 'package:hitech_crm_app/features/visits/visit_model.dart';
 import 'package:hitech_crm_app/features/visits/visit_repository.dart';
 import 'package:hitech_crm_app/features/visits/visits_controller.dart';
@@ -9,6 +11,14 @@ import 'package:hitech_crm_app/features/visits/visits_screen.dart';
 import 'package:hitech_crm_app/l10n/app_localizations.dart';
 
 class _FakeVisitRepository extends VisitRepository {
+  SiteVisit? created;
+
+  @override
+  Future<SiteVisit> createVisit(SiteVisit visit) async {
+    created = visit;
+    return SiteVisit(name: 'VISIT-NEW', lead: visit.lead);
+  }
+
   @override
   Future<List<SiteVisit>> fetchVisits({
     String? status,
@@ -24,6 +34,25 @@ class _FakeVisitRepository extends VisitRepository {
       district: 'மதுரை',
       diameterFt: 20,
       soilType: 'Red Soil',
+    ),
+  ];
+}
+
+class _FakeLeadRepository extends LeadRepository {
+  @override
+  Future<List<CrmLead>> fetchLeads({
+    String? search,
+    String? status,
+    String? source,
+    String? district,
+    int start = 0,
+    int pageLength = LeadRepository.defaultPageLength,
+  }) async => [
+    const CrmLead(
+      name: 'CRM-LEAD-1',
+      leadName: 'Ravi',
+      mobileNo: '9840012345',
+      district: 'Madurai',
     ),
   ];
 }
@@ -68,13 +97,37 @@ void main() {
   });
 
   testWidgets('Tamil create form validates required fields', (tester) async {
-    await _pump(tester, const CreateVisitScreen(), const Locale('ta'));
-    expect(find.text('வாடிக்கையாளர் / லீட் பெயர் *'), findsOneWidget);
+    final visits = _FakeVisitRepository();
+    await _pump(
+      tester,
+      CreateVisitScreen(
+        leadRepository: _FakeLeadRepository(),
+        visitRepository: visits,
+      ),
+      const Locale('ta'),
+    );
+    expect(find.text('லீட்டைத் தேர்ந்தெடுக்கவும் *'), findsOneWidget);
     expect(find.text('ஆய்வு தேதி மற்றும் நேரம்'), findsOneWidget);
     await tester.ensureVisible(find.text('இட ஆய்வை சேமி'));
     await tester.tap(find.text('இட ஆய்வை சேமி'));
     await tester.pumpAndSettle();
-    expect(find.text('இது தேவை'), findsNWidgets(2));
+    expect(
+      find.text('தேடல் முடிவிலிருந்து ஒரு லீட்டைத் தேர்ந்தெடுக்கவும்'),
+      findsOneWidget,
+    );
+    expect(find.text('இது தேவை'), findsOneWidget);
+
+    await tester.ensureVisible(find.byType(TextFormField).first);
+    await tester.enterText(find.byType(TextFormField).first, 'Ravi');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Ravi').last);
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('இட ஆய்வை சேமி'));
+    await tester.tap(find.text('இட ஆய்வை சேமி'));
+    await tester.pumpAndSettle();
+    expect(visits.created?.lead, 'CRM-LEAD-1');
+    expect(visits.created?.mobileNo, '9840012345');
+    expect(visits.created?.toJson()['lead'], 'CRM-LEAD-1');
     expect(tester.takeException(), isNull);
   });
 }

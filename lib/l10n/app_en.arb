@@ -59,6 +59,8 @@
   "visitNotes": "Notes",
   "visitCreateFailed": "Could not create site visit",
   "visitClientLeadName": "Client / lead name *",
+  "visitSelectLead": "Select lead *",
+  "visitLeadRequired": "Select a lead from the search results",
   "visitMobileRequired": "Mobile number *",
   "visitSave": "Save site visit",
   "tabProfile": "Profile",

@@ -8,6 +8,8 @@ import '../../app/widgets.dart';
 import '../../core/app_error.dart';
 import '../../core/contact_links.dart';
 import '../../l10n/app_localizations.dart';
+import '../leads/lead_model.dart';
+import '../leads/lead_repository.dart';
 import 'visit_model.dart';
 import 'visit_repository.dart';
 import 'visits_controller.dart';
@@ -534,7 +536,15 @@ class _VisitDetailScreenState extends State<VisitDetailScreen> {
 }
 
 class CreateVisitScreen extends StatefulWidget {
-  const CreateVisitScreen({super.key});
+  const CreateVisitScreen({
+    super.key,
+    this.leadRepository,
+    this.visitRepository,
+  });
+
+  /// Injectable for tests.
+  final LeadRepository? leadRepository;
+  final VisitRepository? visitRepository;
 
   @override
   State<CreateVisitScreen> createState() => _CreateVisitScreenState();
@@ -542,9 +552,13 @@ class CreateVisitScreen extends StatefulWidget {
 
 class _CreateVisitScreenState extends State<CreateVisitScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _repo = VisitRepository();
+  late final VisitRepository _repo =
+      widget.visitRepository ?? VisitRepository();
+  late final LeadRepository _leadRepo =
+      widget.leadRepository ?? LeadRepository();
 
-  final _leadNameController = TextEditingController();
+  CrmLead? _selectedLead;
+  AppError? _leadSearchError;
   final _mobileController = TextEditingController();
   final _villageController = TextEditingController();
   final _districtController = TextEditingController();
@@ -559,7 +573,6 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
 
   @override
   void dispose() {
-    _leadNameController.dispose();
     _mobileController.dispose();
     _villageController.dispose();
     _districtController.dispose();
@@ -572,12 +585,15 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
 
   void _save() async {
     if (_saving || !_formKey.currentState!.validate()) return;
+    final selectedLead = _selectedLead;
+    if (selectedLead == null) return;
     setState(() => _saving = true);
 
     try {
       final visit = SiteVisit(
         name: '',
-        leadName: _leadNameController.text.trim(),
+        lead: selectedLead.name,
+        leadName: selectedLead.displayName ?? selectedLead.name,
         mobileNo: _mobileController.text.trim(),
         village: _villageController.text.trim(),
         district: _districtController.text.trim(),
@@ -616,6 +632,24 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
     }
   }
 
+  Future<Iterable<CrmLead>> _searchLeads(TextEditingValue value) async {
+    final term = value.text.trim();
+    if (term.isEmpty) return const [];
+    try {
+      final results = await _leadRepo.fetchLeads(search: term);
+      if (mounted && _leadSearchError != null) {
+        setState(() => _leadSearchError = null);
+      }
+      return results;
+    } on AppException catch (e) {
+      if (mounted) setState(() => _leadSearchError = e.error);
+      return const [];
+    } catch (_) {
+      if (mounted) setState(() => _leadSearchError = AppError.unknown);
+      return const [];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -626,12 +660,71 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            TextFormField(
-              controller: _leadNameController,
-              decoration: InputDecoration(labelText: l10n.visitClientLeadName),
-              validator: (v) =>
-                  (v == null || v.trim().isEmpty) ? l10n.fieldRequired : null,
+            Autocomplete<CrmLead>(
+              displayStringForOption: (lead) => lead.displayName ?? lead.name,
+              optionsBuilder: _searchLeads,
+              onSelected: (lead) {
+                setState(() {
+                  _selectedLead = lead;
+                  _leadSearchError = null;
+                  _mobileController.text = lead.mobileNo ?? '';
+                  _districtController.text = lead.district ?? '';
+                });
+              },
+              fieldViewBuilder:
+                  (context, controller, focusNode, onFieldSubmitted) {
+                    return TextFormField(
+                      controller: controller,
+                      focusNode: focusNode,
+                      decoration: InputDecoration(
+                        labelText: l10n.visitSelectLead,
+                        hintText: l10n.searchLeadsHint,
+                      ),
+                      onChanged: (text) {
+                        final selected = _selectedLead;
+                        if (selected != null &&
+                            text != (selected.displayName ?? selected.name)) {
+                          setState(() => _selectedLead = null);
+                        }
+                      },
+                      validator: (_) =>
+                          _selectedLead == null ? l10n.visitLeadRequired : null,
+                    );
+                  },
+              optionsViewBuilder: (context, onSelected, options) => Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(AppTheme.radius),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxHeight: 260),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      itemCount: options.length,
+                      itemBuilder: (context, index) {
+                        final lead = options.elementAt(index);
+                        return ListTile(
+                          title: Text(lead.displayName ?? lead.name),
+                          subtitle: lead.mobileNo == null
+                              ? null
+                              : Text(lead.mobileNo!),
+                          onTap: () => onSelected(lead),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
             ),
+            if (_leadSearchError != null) ...[
+              const SizedBox(height: 6),
+              Text(
+                appErrorMessage(l10n, _leadSearchError!),
+                style: Theme.of(context).textTheme.bodySmall
+                    ?.copyWith(color: AppTheme.error),
+              ),
+            ],
             const SizedBox(height: 12),
             TextFormField(
               controller: _mobileController,

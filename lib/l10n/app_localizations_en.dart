@@ -199,6 +199,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get visitClientLeadName => 'Client / lead name *';
 
   @override
+  String get visitSelectLead => 'Select lead *';
+
+  @override
+  String get visitLeadRequired => 'Select a lead from the search results';
+
+  @override
   String get visitMobileRequired => 'Mobile number *';
 
   @override
