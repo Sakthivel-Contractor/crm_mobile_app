@@ -284,6 +284,186 @@ abstract class AppLocalizations {
   /// **'இட ஆய்வு'**
   String get tabVisits;
 
+  /// Title of the create site visit screen
+  ///
+  /// In ta, this message translates to:
+  /// **'புதிய இட ஆய்வு'**
+  String get visitNew;
+
+  /// Action to create a site visit
+  ///
+  /// In ta, this message translates to:
+  /// **'இட ஆய்வு சேர்'**
+  String get visitAdd;
+
+  /// Empty site visit list title
+  ///
+  /// In ta, this message translates to:
+  /// **'இட ஆய்வுகள் இல்லை'**
+  String get visitEmptyTitle;
+
+  /// Empty site visit list explanation
+  ///
+  /// In ta, this message translates to:
+  /// **'புதிய இட ஆய்வை திட்டமிட்டால் இங்கே காணலாம்.'**
+  String get visitEmptyHint;
+
+  /// Planned status label
+  ///
+  /// In ta, this message translates to:
+  /// **'திட்டமிடப்பட்டது'**
+  String get visitPlanned;
+
+  /// Completed status label
+  ///
+  /// In ta, this message translates to:
+  /// **'முடிந்தது'**
+  String get visitCompleted;
+
+  /// Cancelled status label
+  ///
+  /// In ta, this message translates to:
+  /// **'ரத்து செய்யப்பட்டது'**
+  String get visitCancelled;
+
+  /// Visit without a date
+  ///
+  /// In ta, this message translates to:
+  /// **'தேதி அமைக்கப்படவில்லை'**
+  String get visitDateUnset;
+
+  /// Visit date and time label
+  ///
+  /// In ta, this message translates to:
+  /// **'ஆய்வு தேதி மற்றும் நேரம்'**
+  String get visitDateTime;
+
+  /// Confirmation after updating a visit status
+  ///
+  /// In ta, this message translates to:
+  /// **'நிலை {status} என புதுப்பிக்கப்பட்டது'**
+  String visitStatusUpdated(String status);
+
+  /// Failure to update visit status
+  ///
+  /// In ta, this message translates to:
+  /// **'நிலையை புதுப்பிக்க முடியவில்லை'**
+  String get visitStatusFailed;
+
+  /// Section heading for well details
+  ///
+  /// In ta, this message translates to:
+  /// **'கிணறு விவரங்கள்'**
+  String get visitWellDetails;
+
+  /// Well diameter in feet
+  ///
+  /// In ta, this message translates to:
+  /// **'விட்டம் (அடி)'**
+  String get visitDiameterFt;
+
+  /// Expected well depth in feet
+  ///
+  /// In ta, this message translates to:
+  /// **'எதிர்பார்க்கும் ஆழம் (அடி)'**
+  String get visitExpectedDepthFt;
+
+  /// Depth where rock starts, in feet
+  ///
+  /// In ta, this message translates to:
+  /// **'பாறை தொடங்கும் ஆழம் (அடி)'**
+  String get visitRockFromFt;
+
+  /// Well depth input in feet
+  ///
+  /// In ta, this message translates to:
+  /// **'ஆழம் (அடி)'**
+  String get visitDepthFt;
+
+  /// Soil type field
+  ///
+  /// In ta, this message translates to:
+  /// **'மண் வகை'**
+  String get visitSoilType;
+
+  /// Red Soil value
+  ///
+  /// In ta, this message translates to:
+  /// **'செம்மண்'**
+  String get visitSoilRed;
+
+  /// Black Soil value
+  ///
+  /// In ta, this message translates to:
+  /// **'கரிசல் மண்'**
+  String get visitSoilBlack;
+
+  /// Sandy Soil value
+  ///
+  /// In ta, this message translates to:
+  /// **'மணல் மண்'**
+  String get visitSoilSandy;
+
+  /// Rock soil type value
+  ///
+  /// In ta, this message translates to:
+  /// **'பாறை'**
+  String get visitSoilRock;
+
+  /// Missing optional well detail
+  ///
+  /// In ta, this message translates to:
+  /// **'குறிப்பிடப்படவில்லை'**
+  String get visitNotSpecified;
+
+  /// GPS location section
+  ///
+  /// In ta, this message translates to:
+  /// **'GPS இடம்'**
+  String get visitLocationGps;
+
+  /// GPS coordinates
+  ///
+  /// In ta, this message translates to:
+  /// **'அட்சரேகை: {lat}, தீர்க்கரேகை: {lon}'**
+  String visitCoordinates(String lat, String lon);
+
+  /// Open coordinates in Google Maps
+  ///
+  /// In ta, this message translates to:
+  /// **'Google Maps-இல் திற'**
+  String get visitOpenMaps;
+
+  /// Notes section and field
+  ///
+  /// In ta, this message translates to:
+  /// **'குறிப்புகள்'**
+  String get visitNotes;
+
+  /// Failure to create a site visit
+  ///
+  /// In ta, this message translates to:
+  /// **'இட ஆய்வை உருவாக்க முடியவில்லை'**
+  String get visitCreateFailed;
+
+  /// Required client or lead name
+  ///
+  /// In ta, this message translates to:
+  /// **'வாடிக்கையாளர் / லீட் பெயர் *'**
+  String get visitClientLeadName;
+
+  /// Required mobile number
+  ///
+  /// In ta, this message translates to:
+  /// **'கைபேசி எண் *'**
+  String get visitMobileRequired;
+
+  /// Save site visit action
+  ///
+  /// In ta, this message translates to:
+  /// **'இட ஆய்வை சேமி'**
+  String get visitSave;
+
   /// Bottom nav: profile
   ///
   /// In ta, this message translates to:

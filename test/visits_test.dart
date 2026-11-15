@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:hitech_crm_app/app/theme.dart';
+import 'package:hitech_crm_app/features/visits/visit_model.dart';
+import 'package:hitech_crm_app/features/visits/visit_repository.dart';
+import 'package:hitech_crm_app/features/visits/visits_controller.dart';
+import 'package:hitech_crm_app/features/visits/visits_screen.dart';
+import 'package:hitech_crm_app/l10n/app_localizations.dart';
+
+class _FakeVisitRepository extends VisitRepository {
+  @override
+  Future<List<SiteVisit>> fetchVisits({
+    String? status,
+    String? search,
+    int limit = 50,
+  }) async => [
+    SiteVisit(
+      name: 'VISIT-1',
+      leadName: 'ரவி',
+      status: 'Planned',
+      visitDate: DateTime(2026, 11, 15, 10, 30),
+      mobileNo: '9840012345',
+      district: 'மதுரை',
+      diameterFt: 20,
+      soilType: 'Red Soil',
+    ),
+  ];
+}
+
+Future<void> _pump(WidgetTester tester, Widget child, Locale locale) async {
+  tester.view.physicalSize = const Size(412, 915);
+  tester.view.devicePixelRatio = 1;
+  tester.platformDispatcher.textScaleFactorTestValue = 1.3;
+  addTearDown(tester.view.reset);
+  addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+  await tester.pumpWidget(
+    MaterialApp(
+      theme: AppTheme.light,
+      builder: AppTheme.clampTextScale,
+      locale: locale,
+      supportedLocales: const [Locale('ta'), Locale('en')],
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      home: child,
+    ),
+  );
+  await tester.pumpAndSettle();
+}
+
+void main() {
+  testWidgets('Tamil visit list and detail fit a phone', (tester) async {
+    final controller = VisitsController(repository: _FakeVisitRepository());
+    addTearDown(controller.dispose);
+    await _pump(
+      tester,
+      VisitsScreen(controller: controller),
+      const Locale('ta'),
+    );
+    expect(find.text('திட்டமிடப்பட்டது'), findsWidgets);
+    expect(find.text('புதிய இட ஆய்வு'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+
+    await tester.tap(find.text('ரவி'));
+    await tester.pumpAndSettle();
+    expect(find.text('கிணறு விவரங்கள்'), findsOneWidget);
+    expect(find.text('செம்மண்'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Tamil create form validates required fields', (tester) async {
+    await _pump(tester, const CreateVisitScreen(), const Locale('ta'));
+    expect(find.text('வாடிக்கையாளர் / லீட் பெயர் *'), findsOneWidget);
+    expect(find.text('ஆய்வு தேதி மற்றும் நேரம்'), findsOneWidget);
+    await tester.ensureVisible(find.text('இட ஆய்வை சேமி'));
+    await tester.tap(find.text('இட ஆய்வை சேமி'));
+    await tester.pumpAndSettle();
+    expect(find.text('இது தேவை'), findsNWidgets(2));
+    expect(tester.takeException(), isNull);
+  });
+}

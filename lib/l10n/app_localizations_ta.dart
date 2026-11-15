@@ -112,6 +112,100 @@ class AppLocalizationsTa extends AppLocalizations {
   String get tabVisits => 'இட ஆய்வு';
 
   @override
+  String get visitNew => 'புதிய இட ஆய்வு';
+
+  @override
+  String get visitAdd => 'இட ஆய்வு சேர்';
+
+  @override
+  String get visitEmptyTitle => 'இட ஆய்வுகள் இல்லை';
+
+  @override
+  String get visitEmptyHint => 'புதிய இட ஆய்வை திட்டமிட்டால் இங்கே காணலாம்.';
+
+  @override
+  String get visitPlanned => 'திட்டமிடப்பட்டது';
+
+  @override
+  String get visitCompleted => 'முடிந்தது';
+
+  @override
+  String get visitCancelled => 'ரத்து செய்யப்பட்டது';
+
+  @override
+  String get visitDateUnset => 'தேதி அமைக்கப்படவில்லை';
+
+  @override
+  String get visitDateTime => 'ஆய்வு தேதி மற்றும் நேரம்';
+
+  @override
+  String visitStatusUpdated(String status) {
+    return 'நிலை $status என புதுப்பிக்கப்பட்டது';
+  }
+
+  @override
+  String get visitStatusFailed => 'நிலையை புதுப்பிக்க முடியவில்லை';
+
+  @override
+  String get visitWellDetails => 'கிணறு விவரங்கள்';
+
+  @override
+  String get visitDiameterFt => 'விட்டம் (அடி)';
+
+  @override
+  String get visitExpectedDepthFt => 'எதிர்பார்க்கும் ஆழம் (அடி)';
+
+  @override
+  String get visitRockFromFt => 'பாறை தொடங்கும் ஆழம் (அடி)';
+
+  @override
+  String get visitDepthFt => 'ஆழம் (அடி)';
+
+  @override
+  String get visitSoilType => 'மண் வகை';
+
+  @override
+  String get visitSoilRed => 'செம்மண்';
+
+  @override
+  String get visitSoilBlack => 'கரிசல் மண்';
+
+  @override
+  String get visitSoilSandy => 'மணல் மண்';
+
+  @override
+  String get visitSoilRock => 'பாறை';
+
+  @override
+  String get visitNotSpecified => 'குறிப்பிடப்படவில்லை';
+
+  @override
+  String get visitLocationGps => 'GPS இடம்';
+
+  @override
+  String visitCoordinates(String lat, String lon) {
+    return 'அட்சரேகை: $lat, தீர்க்கரேகை: $lon';
+  }
+
+  @override
+  String get visitOpenMaps => 'Google Maps-இல் திற';
+
+  @override
+  String get visitNotes => 'குறிப்புகள்';
+
+  @override
+  String get visitCreateFailed => 'இட ஆய்வை உருவாக்க முடியவில்லை';
+
+  @override
+  String get visitClientLeadName => 'வாடிக்கையாளர் / லீட் பெயர் *';
+
+  @override
+  String get visitMobileRequired => 'கைபேசி எண் *';
+
+  @override
+  String get visitSave => 'இட ஆய்வை சேமி';
+
+  @override
   String get tabProfile => 'சுயவிவரம்';
 
   @override

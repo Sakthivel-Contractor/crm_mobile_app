@@ -1,6 +1,6 @@
 # HI Tech CRM mobile
 
-Flutter client for the HI Tech Frappe CRM backend. The current repository builds an Android app; it does not contain an iOS project. The app supports Tamil and English, although the Visits screens still contain English-only copy.
+Flutter client for the HI Tech Frappe CRM backend. The current repository builds an Android app; it does not contain an iOS project. The app supports Tamil and English, including the Visits flow.
 
 ## Development
 
@@ -37,7 +37,6 @@ Automated checks cover static analysis, unit and widget tests, and an Android de
 - A signed **release** AAB built and tested with the actual upload key. This checkout has no release key, so that check cannot be completed here.
 - End-to-end testing against the intended production Frappe site with real user permissions: login, session expiry, lead list/detail, call follow-up, Visits, dashboard, logout, and account switching.
 - Push testing on physical devices in foreground, background, and terminated states, including token registration/unregistration and permission denial.
-- Translation of the Visits flow into Tamil. Do not advertise that flow as bilingual until it is complete.
 - Offline and reconnect testing for each write flow. There is no durable offline write queue; the current app needs a connection to save changes.
 - Store assets, privacy policy, data safety declarations, crash monitoring, and a staged rollout with a rollback plan.
 

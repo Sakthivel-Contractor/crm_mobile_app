@@ -111,6 +111,100 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tabVisits => 'Visits';
 
   @override
+  String get visitNew => 'New site visit';
+
+  @override
+  String get visitAdd => 'Add visit';
+
+  @override
+  String get visitEmptyTitle => 'No site visits found';
+
+  @override
+  String get visitEmptyHint => 'Schedule a new site visit to see it here.';
+
+  @override
+  String get visitPlanned => 'Planned';
+
+  @override
+  String get visitCompleted => 'Completed';
+
+  @override
+  String get visitCancelled => 'Cancelled';
+
+  @override
+  String get visitDateUnset => 'Date not set';
+
+  @override
+  String get visitDateTime => 'Visit date and time';
+
+  @override
+  String visitStatusUpdated(String status) {
+    return 'Status updated to $status';
+  }
+
+  @override
+  String get visitStatusFailed => 'Could not update status';
+
+  @override
+  String get visitWellDetails => 'Well details';
+
+  @override
+  String get visitDiameterFt => 'Diameter (ft)';
+
+  @override
+  String get visitExpectedDepthFt => 'Expected depth (ft)';
+
+  @override
+  String get visitRockFromFt => 'Rock starts at (ft)';
+
+  @override
+  String get visitDepthFt => 'Depth (ft)';
+
+  @override
+  String get visitSoilType => 'Soil type';
+
+  @override
+  String get visitSoilRed => 'Red soil';
+
+  @override
+  String get visitSoilBlack => 'Black soil';
+
+  @override
+  String get visitSoilSandy => 'Sandy soil';
+
+  @override
+  String get visitSoilRock => 'Rock';
+
+  @override
+  String get visitNotSpecified => 'Not specified';
+
+  @override
+  String get visitLocationGps => 'GPS location';
+
+  @override
+  String visitCoordinates(String lat, String lon) {
+    return 'Lat: $lat, Lon: $lon';
+  }
+
+  @override
+  String get visitOpenMaps => 'Open in Google Maps';
+
+  @override
+  String get visitNotes => 'Notes';
+
+  @override
+  String get visitCreateFailed => 'Could not create site visit';
+
+  @override
+  String get visitClientLeadName => 'Client / lead name *';
+
+  @override
+  String get visitMobileRequired => 'Mobile number *';
+
+  @override
+  String get visitSave => 'Save site visit';
+
+  @override
   String get tabProfile => 'Profile';
 
   @override
