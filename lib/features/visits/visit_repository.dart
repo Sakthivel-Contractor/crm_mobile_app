@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import '../../core/api_client.dart';
-import '../../core/app_error.dart';
 import '../../core/frappe_json.dart';
 import 'visit_model.dart';
 

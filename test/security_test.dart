@@ -221,6 +221,16 @@ void main() {
         isTrue,
       );
     });
+
+    test('normalization retains userinfo for the URL policy to reject', () {
+      for (final input in [
+        'https://user:pass@crm.example.com/path',
+        'user:pass@crm.example.com/path',
+      ]) {
+        final normalized = ApiClient.normalizeUrl(input);
+        expect(ApiClient.isAllowedSiteUrl(normalized, release: true), isFalse);
+      }
+    });
   });
 
   group('phone validation and link builders', () {

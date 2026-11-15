@@ -185,6 +185,28 @@ void main() {
       );
       expect(adapter.paths, isEmpty);
     });
+
+    test(
+      'server URL with embedded credentials is refused before any request',
+      () async {
+        adapter.paths.clear();
+        await expectLater(
+          api.signIn(
+            siteUrl: 'https://user:secret@crm.example.com/path',
+            username: 'u',
+            password: password,
+          ),
+          throwsA(
+            isA<AuthException>().having(
+              (e) => e.type,
+              'type',
+              AuthErrorType.insecureUrl,
+            ),
+          ),
+        );
+        expect(adapter.paths, isEmpty);
+      },
+    );
   });
 
   group('error mapping (no raw server text reaches the UI)', () {

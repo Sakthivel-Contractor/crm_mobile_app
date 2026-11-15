@@ -6,6 +6,7 @@ import '../../app/skeleton.dart';
 import '../../app/theme.dart';
 import '../../app/widgets.dart';
 import '../../core/app_error.dart';
+import '../../core/contact_links.dart';
 import '../../l10n/app_localizations.dart';
 import 'visit_model.dart';
 import 'visit_repository.dart';
@@ -34,9 +35,9 @@ class _VisitsScreenState extends State<VisitsScreen> {
   }
 
   void _openCreateVisit() async {
-    final created = await Navigator.of(context).push<bool>(
-      MaterialPageRoute(builder: (_) => const CreateVisitScreen()),
-    );
+    final created = await Navigator.of(
+      context,
+    ).push<bool>(MaterialPageRoute(builder: (_) => const CreateVisitScreen()));
     if (created == true) {
       _controller.refresh();
     }
@@ -140,10 +141,7 @@ class _VisitsScreenState extends State<VisitsScreen> {
             )
           else
             for (final visit in _controller.visits) ...[
-              _VisitCard(
-                visit: visit,
-                onTap: () => _openDetail(visit),
-              ),
+              _VisitCard(visit: visit, onTap: () => _openDetail(visit)),
               const SizedBox(height: 10),
             ],
           const SizedBox(height: 60), // Room for FAB
@@ -222,8 +220,11 @@ class _VisitCard extends StatelessWidget {
           const SizedBox(height: 6),
           Row(
             children: [
-              const Icon(Icons.calendar_today_outlined,
-                  size: 14, color: AppTheme.textMuted),
+              const Icon(
+                Icons.calendar_today_outlined,
+                size: 14,
+                color: AppTheme.textMuted,
+              ),
               const SizedBox(width: 6),
               Text(
                 dateStr,
@@ -237,8 +238,11 @@ class _VisitCard extends StatelessWidget {
             const SizedBox(height: 4),
             Row(
               children: [
-                const Icon(Icons.location_on_outlined,
-                    size: 14, color: AppTheme.textMuted),
+                const Icon(
+                  Icons.location_on_outlined,
+                  size: 14,
+                  color: AppTheme.textMuted,
+                ),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -253,22 +257,26 @@ class _VisitCard extends StatelessWidget {
               ],
             ),
           ],
-          if (visit.mobileNo != null && visit.mobileNo!.isNotEmpty) ...[
+          if ((visit.mobileNo != null && telUri(visit.mobileNo!) != null) ||
+              (visit.latitude != null && visit.longitude != null)) ...[
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton.filledTonal(
-                  icon: const Icon(Icons.call, size: 18),
-                  onPressed: () => launchUrl(Uri.parse('tel:${visit.mobileNo}')),
-                ),
+                if (visit.mobileNo != null && telUri(visit.mobileNo!) != null)
+                  IconButton.filledTonal(
+                    icon: const Icon(Icons.call, size: 18),
+                    onPressed: () => openExternal(telUri(visit.mobileNo!)!),
+                  ),
                 if (visit.latitude != null && visit.longitude != null) ...[
-                  const SizedBox(width: 8),
+                  if (visit.mobileNo != null && telUri(visit.mobileNo!) != null)
+                    const SizedBox(width: 8),
                   IconButton.filledTonal(
                     icon: const Icon(Icons.directions, size: 18),
                     onPressed: () => launchUrl(
                       Uri.parse(
-                          'https://www.google.com/maps/search/?api=1&query=${visit.latitude},${visit.longitude}'),
+                        'https://www.google.com/maps/search/?api=1&query=${visit.latitude},${visit.longitude}',
+                      ),
                       mode: LaunchMode.externalApplication,
                     ),
                   ),
@@ -306,9 +314,9 @@ class _VisitDetailScreenState extends State<VisitDetailScreen> {
           _visit = refreshed;
           _updating = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Status updated to $newStatus')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Status updated to $newStatus')));
       }
     } catch (_) {
       if (mounted) {
@@ -328,9 +336,7 @@ class _VisitDetailScreenState extends State<VisitDetailScreen> {
         : 'Date not set';
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_visit.displayTitle),
-      ),
+      appBar: AppBar(title: Text(_visit.displayTitle)),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -345,9 +351,13 @@ class _VisitDetailScreenState extends State<VisitDetailScreen> {
                     DropdownButton<String>(
                       value: _visit.status,
                       items: ['Planned', 'Completed', 'Cancelled']
-                          .map((s) => DropdownMenuItem(value: s, child: Text(s)))
+                          .map(
+                            (s) => DropdownMenuItem(value: s, child: Text(s)),
+                          )
                           .toList(),
-                      onChanged: _updating ? null : (v) => v != null ? _changeStatus(v) : null,
+                      onChanged: _updating
+                          ? null
+                          : (v) => v != null ? _changeStatus(v) : null,
                     ),
                   ],
                 ),
@@ -367,16 +377,25 @@ class _VisitDetailScreenState extends State<VisitDetailScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Well Details',
-                    style: theme.textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold)),
+                Text(
+                  'Well Details',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 10),
-                _detailRow('Diameter (ft)',
-                    _visit.diameterFt?.toString() ?? 'Not specified'),
-                _detailRow('Expected Depth (ft)',
-                    _visit.expectedDepthFt?.toString() ?? 'Not specified'),
-                _detailRow('Rock Starts At (ft)',
-                    _visit.rockFromFt?.toString() ?? 'Not specified'),
+                _detailRow(
+                  'Diameter (ft)',
+                  _visit.diameterFt?.toString() ?? 'Not specified',
+                ),
+                _detailRow(
+                  'Expected Depth (ft)',
+                  _visit.expectedDepthFt?.toString() ?? 'Not specified',
+                ),
+                _detailRow(
+                  'Rock Starts At (ft)',
+                  _visit.rockFromFt?.toString() ?? 'Not specified',
+                ),
                 _detailRow('Soil Type', _visit.soilType ?? 'Not specified'),
               ],
             ),
@@ -387,16 +406,20 @@ class _VisitDetailScreenState extends State<VisitDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Location GPS',
-                      style: theme.textTheme.titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    'Location GPS',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   Text('Lat: ${_visit.latitude}, Lon: ${_visit.longitude}'),
                   const SizedBox(height: 12),
                   FilledButton.icon(
                     onPressed: () => launchUrl(
                       Uri.parse(
-                          'https://www.google.com/maps/search/?api=1&query=${_visit.latitude},${_visit.longitude}'),
+                        'https://www.google.com/maps/search/?api=1&query=${_visit.latitude},${_visit.longitude}',
+                      ),
                       mode: LaunchMode.externalApplication,
                     ),
                     icon: const Icon(Icons.map_outlined),
@@ -412,9 +435,12 @@ class _VisitDetailScreenState extends State<VisitDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Notes',
-                      style: theme.textTheme.titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    'Notes',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   Text(_visit.notes!),
                 ],
@@ -508,15 +534,19 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
           children: [
             TextFormField(
               controller: _leadNameController,
-              decoration: const InputDecoration(labelText: 'Client / Lead Name *'),
-              validator: (v) => (v == null || v.trim().isEmpty) ? 'Required' : null,
+              decoration: const InputDecoration(
+                labelText: 'Client / Lead Name *',
+              ),
+              validator: (v) =>
+                  (v == null || v.trim().isEmpty) ? 'Required' : null,
             ),
             const SizedBox(height: 12),
             TextFormField(
               controller: _mobileController,
               decoration: const InputDecoration(labelText: 'Mobile Number *'),
               keyboardType: TextInputType.phone,
-              validator: (v) => (v == null || v.trim().isEmpty) ? 'Required' : null,
+              validator: (v) =>
+                  (v == null || v.trim().isEmpty) ? 'Required' : null,
             ),
             const SizedBox(height: 12),
             Row(
@@ -540,7 +570,9 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
             ListTile(
               contentPadding: EdgeInsets.zero,
               title: const Text('Visit Date & Time'),
-              subtitle: Text(DateFormat('EEE, d MMM yyyy, hh:mm a').format(_visitDate)),
+              subtitle: Text(
+                DateFormat('EEE, d MMM yyyy, hh:mm a').format(_visitDate),
+              ),
               trailing: const Icon(Icons.calendar_month_outlined),
               onTap: () async {
                 final d = await showDatePicker(
@@ -549,14 +581,20 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
                   firstDate: DateTime.now().subtract(const Duration(days: 30)),
                   lastDate: DateTime.now().add(const Duration(days: 365)),
                 );
-                if (d != null && mounted) {
+                if (d != null && context.mounted) {
                   final t = await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.fromDateTime(_visitDate),
                   );
-                  if (t != null) {
+                  if (t != null && mounted) {
                     setState(() {
-                      _visitDate = DateTime(d.year, d.month, d.day, t.hour, t.minute);
+                      _visitDate = DateTime(
+                        d.year,
+                        d.month,
+                        d.day,
+                        t.hour,
+                        t.minute,
+                      );
                     });
                   }
                 }
@@ -564,14 +602,19 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
             ),
             const Divider(),
             const SizedBox(height: 8),
-            const Text('Well Details', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Well Details',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
                   child: TextFormField(
                     controller: _diameterController,
-                    decoration: const InputDecoration(labelText: 'Diameter (ft)'),
+                    decoration: const InputDecoration(
+                      labelText: 'Diameter (ft)',
+                    ),
                     keyboardType: TextInputType.number,
                   ),
                 ),
@@ -587,12 +630,16 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
             ),
             const SizedBox(height: 12),
             DropdownButtonFormField<String>(
-              value: _soilType,
+              initialValue: _soilType,
               decoration: const InputDecoration(labelText: 'Soil Type'),
-              items: ['Red Soil', 'Black Soil', 'Sandy Soil', 'Rock']
-                  .map((s) => DropdownMenuItem(value: s, child: Text(s)))
-                  .toList(),
-              onChanged: (v) => v != null ? setState(() => _soilType = v) : null,
+              items: [
+                'Red Soil',
+                'Black Soil',
+                'Sandy Soil',
+                'Rock',
+              ].map((s) => DropdownMenuItem(value: s, child: Text(s))).toList(),
+              onChanged: (v) =>
+                  v != null ? setState(() => _soilType = v) : null,
             ),
             const SizedBox(height: 12),
             TextFormField(

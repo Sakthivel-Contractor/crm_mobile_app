@@ -188,6 +188,9 @@ class ApiClient {
       }
       return url;
     }
+    // Keep invalid credentials in the value so isAllowedSiteUrl can reject
+    // them. Uri.origin would silently erase userinfo before validation.
+    if (uri.userInfo.isNotEmpty) return url;
     return uri.origin;
   }
 
@@ -386,16 +389,18 @@ class ApiClient {
       logDebug('[ping] trying $url/api/method/ping');
       final response = await _dio.get<dynamic>('$url/api/method/ping');
       final data = response.data;
-      logDebug('[ping] response type=${data.runtimeType} data=$data');
+      logDebug('[ping] response type=${data.runtimeType}');
       if (data is Map && data['message'] == 'pong') return;
       if (data is String && data.contains('pong')) return;
     } on DioException catch (e) {
-      logDebug('[ping] DioException type=${e.type} status=${e.response?.statusCode} msg=${e.message}');
+      logDebug(
+        '[ping] DioException type=${e.type} status=${e.response?.statusCode}',
+      );
       if (_isNetworkError(e)) {
         throw const AuthException(AuthErrorType.network);
       }
-    } catch (e) {
-      logDebug('[ping] unexpected error: $e');
+    } catch (_) {
+      logDebug('[ping] unexpected error');
     }
     // Wrong URL, not a Frappe server, unreachable host or CORS failure.
     throw const AuthException(AuthErrorType.serverUnreachable);

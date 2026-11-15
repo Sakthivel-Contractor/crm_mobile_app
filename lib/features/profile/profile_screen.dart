@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../app/language_toggle.dart';
@@ -220,19 +221,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-            if (PushService.isSupported)
+            if (kDebugMode && PushService.isSupported)
               Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: OutlinedButton.icon(
                   onPressed: () async {
                     final msg = await PushService.instance.runDiagnostic();
-                    if (!mounted) return;
+                    if (!context.mounted) return;
                     showDialog<void>(
                       context: context,
                       builder: (ctx) => AlertDialog(
                         title: const Text('Push Notification Diagnostic'),
                         content: SingleChildScrollView(
-                          child: SelectableText(msg, style: const TextStyle(fontSize: 13)),
+                          child: SelectableText(
+                            msg,
+                            style: const TextStyle(fontSize: 13),
+                          ),
                         ),
                         actions: [
                           TextButton(

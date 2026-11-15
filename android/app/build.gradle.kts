@@ -8,8 +8,7 @@ plugins {
 }
 
 // Release signing key: android/key.properties (never committed — see
-// android/.gitignore; template in key.properties.example). Without it,
-// release builds fall back to the debug key with a warning.
+// android/.gitignore; template in key.properties.example).
 val keystorePropertiesFile = rootProject.file("key.properties")
 val keystoreProperties = Properties().apply {
     if (keystorePropertiesFile.exists()) {
@@ -17,6 +16,12 @@ val keystoreProperties = Properties().apply {
     }
 }
 val hasReleaseKey = keystorePropertiesFile.exists()
+if (!hasReleaseKey && gradle.startParameter.taskNames.any { it.contains("Release", ignoreCase = true) }) {
+    throw GradleException(
+        "Release signing requires android/key.properties and its keystore. " +
+            "See android/key.properties.example.",
+    )
+}
 
 fun keystoreProperty(name: String): String =
     keystoreProperties.getProperty(name)?.takeIf { it.isNotBlank() }
@@ -62,15 +67,8 @@ android {
 
     buildTypes {
         release {
-            signingConfig = if (hasReleaseKey) {
-                signingConfigs.getByName("release")
-            } else {
-                logger.warn(
-                    "WARNING: android/key.properties not found — this release " +
-                        "build is signed with the DEBUG key. Do not publish it.",
-                )
-                signingConfigs.getByName("debug")
-            }
+            signingConfig = if (hasReleaseKey) signingConfigs.getByName("release") else null
+            isDebuggable = false
             // R8: remove unused code/resources and obfuscate Java/Kotlin.
             isMinifyEnabled = true
             isShrinkResources = true
@@ -78,6 +76,22 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+        }
+    }
+}
+
+// Fail closed: a release must never be built with the debug key or unsigned.
+tasks.configureEach {
+    if (name.endsWith("Release") &&
+        (name.startsWith("assemble") || name.startsWith("bundle") || name.startsWith("package"))
+    ) {
+        doFirst {
+            if (!hasReleaseKey) {
+                throw GradleException(
+                    "Release signing requires android/key.properties and its keystore. " +
+                        "See android/key.properties.example.",
+                )
+            }
         }
     }
 }
