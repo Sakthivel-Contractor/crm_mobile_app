@@ -7,9 +7,11 @@ import 'package:hitech_crm_app/app/theme.dart';
 import 'package:hitech_crm_app/core/app_error.dart';
 import 'package:hitech_crm_app/core/relative_time.dart';
 import 'package:hitech_crm_app/features/leads/lead_model.dart';
+import 'package:hitech_crm_app/features/leads/lead_detail_screen.dart';
 import 'package:hitech_crm_app/features/leads/lead_repository.dart';
 import 'package:hitech_crm_app/features/leads/leads_controller.dart';
 import 'package:hitech_crm_app/features/leads/leads_screen.dart';
+import 'package:hitech_crm_app/features/leads/new_lead_screen.dart';
 import 'package:hitech_crm_app/l10n/app_localizations.dart';
 
 CrmLead _lead(int i, {String? status = 'New'}) => CrmLead(
@@ -27,6 +29,9 @@ class FakeLeadRepository extends LeadRepository {
 
   int total;
   AppError? failWith;
+  AppError? createError;
+  ({String firstName, String status, String? mobileNo, String? district})?
+  created;
   final calls = <({String? search, String? status, int start})>[];
   Completer<void>? gate;
 
@@ -48,9 +53,36 @@ class FakeLeadRepository extends LeadRepository {
 
   @override
   Future<List<LeadStatus>> fetchStatuses() async => const [
-    LeadStatus(name: 'New', color: 'gray', position: 1),
-    LeadStatus(name: 'Qualified', color: 'green', position: 2),
+    LeadStatus(name: 'New', color: 'gray', position: 1, type: 'Open'),
+    LeadStatus(name: 'Qualified', color: 'green', position: 2, type: 'Won'),
   ];
+
+  @override
+  Future<CrmLead> createLead({
+    required String firstName,
+    required String status,
+    String? lastName,
+    String? mobileNo,
+    String? email,
+    String? village,
+    String? district,
+    String? workType,
+  }) async {
+    if (createError != null) throw AppException(createError!);
+    created = (
+      firstName: firstName,
+      status: status,
+      mobileNo: mobileNo,
+      district: district,
+    );
+    return CrmLead(
+      name: 'CRM-LEAD-NEW',
+      firstName: firstName,
+      lastName: lastName,
+      mobileNo: mobileNo,
+      status: status,
+    );
+  }
 }
 
 Widget _app(Widget home, {Locale locale = const Locale('ta')}) => MaterialApp(
@@ -242,16 +274,84 @@ void main() {
       expect(find.text('Lead 0'), findsOneWidget);
     });
 
-    testWidgets('FAB shows Coming soon', (tester) async {
+    testWidgets('FAB creates a lead and opens its detail', (tester) async {
       await setPhone(tester);
-      final controller = LeadsController(repository: FakeLeadRepository());
+      final repo = FakeLeadRepository();
+      final controller = LeadsController(repository: repo);
       addTearDown(controller.dispose);
 
-      await tester.pumpWidget(_app(LeadsScreen(controller: controller)));
-      await tester.pump();
+      await tester.pumpWidget(
+        _app(
+          LeadsScreen(controller: controller, newLeadRepository: repo),
+          locale: const Locale('en'),
+        ),
+      );
+      await tester.pumpAndSettle();
       await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
+      expect(find.text('New lead'), findsOneWidget);
+      expect(find.text('Qualified'), findsNothing);
+
+      await tester.ensureVisible(find.text('Save'));
+      await tester.tap(find.text('Save'));
       await tester.pump();
-      expect(find.text('விரைவில் வருகிறது'), findsOneWidget);
+      expect(find.text('Required'), findsOneWidget);
+      expect(repo.created, isNull);
+
+      await tester.enterText(find.byType(TextFormField).first, 'Ravi');
+      await tester.enterText(find.byType(TextFormField).at(2), '9840012345');
+      await tester.ensureVisible(find.text('Save'));
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+
+      expect(repo.created?.firstName, 'Ravi');
+      expect(repo.created?.status, 'New');
+      expect(repo.created?.mobileNo, '9840012345');
+      expect(find.byType(LeadDetailScreen), findsOneWidget);
+    });
+
+    testWidgets('new lead rejects invalid optional contact details', (
+      tester,
+    ) async {
+      await setPhone(tester);
+      final repo = FakeLeadRepository();
+      await tester.pumpWidget(
+        _app(NewLeadScreen(repository: repo), locale: const Locale('en')),
+      );
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextFormField).first, 'Ravi');
+      await tester.enterText(find.byType(TextFormField).at(2), 'abc');
+      await tester.enterText(find.byType(TextFormField).at(3), 'not-an-email');
+      await tester.ensureVisible(find.text('Save'));
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+      expect(find.text('Enter a valid phone number'), findsOneWidget);
+      expect(find.text('Enter a valid email address'), findsOneWidget);
+      expect(repo.created, isNull);
+    });
+
+    testWidgets('failed save keeps form and allows retry', (tester) async {
+      await setPhone(tester);
+      final repo = FakeLeadRepository()..createError = AppError.network;
+      await tester.pumpWidget(
+        _app(
+          // Exercise the form without depending on the list's network state.
+          NewLeadScreen(repository: repo),
+          locale: const Locale('en'),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextFormField).first, 'Ravi');
+      await tester.ensureVisible(find.text('Save'));
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+      expect(find.text('Check your internet connection'), findsOneWidget);
+      expect(find.text('Ravi'), findsOneWidget);
+
+      repo.createError = null;
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+      expect(repo.created?.firstName, 'Ravi');
     });
   });
 }

@@ -165,6 +165,54 @@ class AppLocalizationsTa extends AppLocalizations {
   String get newLead => 'புதிய லீட்';
 
   @override
+  String get newLeadDetails => 'லீட் விவரங்கள்';
+
+  @override
+  String get leadCreated => 'லீட் உருவாக்கப்பட்டது';
+
+  @override
+  String get firstName => 'முதல் பெயர் *';
+
+  @override
+  String get lastName => 'கடைசி பெயர்';
+
+  @override
+  String get mobileNumber => 'கைபேசி எண்';
+
+  @override
+  String get emailAddress => 'மின்னஞ்சல் முகவரி';
+
+  @override
+  String get village => 'கிராமம்';
+
+  @override
+  String get district => 'மாவட்டம்';
+
+  @override
+  String get workType => 'வேலை வகை';
+
+  @override
+  String get workTypeNewWell => 'புதிய கிணறு';
+
+  @override
+  String get workTypeDeepening => 'கிணறு ஆழப்படுத்தல்';
+
+  @override
+  String get workTypeWall => 'சுவர் கட்டுமானம்';
+
+  @override
+  String get workTypeDesilting => 'தூர்வாருதல்';
+
+  @override
+  String get workTypeSurvey => 'நீர் ஆய்வு';
+
+  @override
+  String get invalidPhone => 'சரியான தொலைபேசி எண்ணை உள்ளிடவும்';
+
+  @override
+  String get invalidEmail => 'சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்';
+
+  @override
   String get unnamedLead => 'பெயரில்லா லீட்';
 
   @override

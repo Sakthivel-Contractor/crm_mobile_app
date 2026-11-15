@@ -58,18 +58,20 @@ class CrmLead {
 
 /// A "CRM Lead Status" row.
 class LeadStatus {
-  const LeadStatus({required this.name, this.color, this.position});
+  const LeadStatus({required this.name, this.color, this.position, this.type});
 
   final String name;
 
   /// Frappe CRM colour name ("blue", "green", ...) or a hex value.
   final String? color;
   final int? position;
+  final String? type;
 
   factory LeadStatus.fromJson(Map<String, dynamic> json) => LeadStatus(
     name: _string(json['name']) ?? '',
     color: _string(json['color']),
     position: _int(json['position']),
+    type: _string(json['type']),
   );
 }
 

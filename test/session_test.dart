@@ -11,6 +11,7 @@ import 'package:hitech_crm_app/core/api_client.dart';
 import 'package:hitech_crm_app/core/app_error.dart';
 import 'package:hitech_crm_app/core/session_io.dart' as session;
 import 'package:hitech_crm_app/core/storage.dart';
+import 'package:hitech_crm_app/features/leads/lead_repository.dart';
 
 /// Answers requests from [handler] instead of the network.
 class FakeAdapter implements HttpClientAdapter {
@@ -208,6 +209,37 @@ void main() {
       },
     );
   });
+
+  test(
+    'createLead posts the CRM Lead fields and parses the created document',
+    () async {
+      RequestOptions? sent;
+      adapter.handler = (options) async {
+        sent = options;
+        return _json(200, {
+          'data': {
+            'name': 'CRM-LEAD-NEW',
+            'first_name': 'Ravi',
+            'status': 'New',
+          },
+        });
+      };
+      final lead = await LeadRepository(client: api).createLead(
+        firstName: 'Ravi',
+        status: 'New',
+        mobileNo: '9840012345',
+        district: 'Madurai',
+        workType: 'New Well',
+      );
+      expect(sent?.method, 'POST');
+      expect(sent?.uri.toString(), contains('/api/resource/CRM%20Lead'));
+      expect(sent?.data, containsPair('first_name', 'Ravi'));
+      expect(sent?.data, containsPair('mobile_no', '9840012345'));
+      expect(sent?.data, containsPair('custom_district', 'Madurai'));
+      expect(sent?.data, containsPair('custom_work_type', 'New Well'));
+      expect(lead.name, 'CRM-LEAD-NEW');
+    },
+  );
 
   group('error mapping (no raw server text reaches the UI)', () {
     Future<AppError> errorFor(

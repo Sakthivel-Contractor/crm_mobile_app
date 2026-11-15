@@ -109,7 +109,7 @@ class LeadRepository {
     final data = await _client.getJson(
       _statusPath,
       query: {
-        'fields': jsonEncode(['name', 'color', 'position']),
+        'fields': jsonEncode(['name', 'color', 'position', 'type']),
         'order_by': 'position asc',
         'limit_page_length': 0, // all
       },
@@ -124,6 +124,33 @@ class LeadRepository {
   Future<CrmLead> getLead(String name) async {
     final data = await _client.getJson(_leadDoc(name));
     return CrmLead.fromJson(frappeDoc(data));
+  }
+
+  /// Creates a lead with fields supported by the CRM Lead DocType.
+  /// The server validates permissions, links and business rules.
+  Future<CrmLead> createLead({
+    required String firstName,
+    required String status,
+    String? lastName,
+    String? mobileNo,
+    String? email,
+    String? village,
+    String? district,
+    String? workType,
+  }) async {
+    final data = await _client.postJson(_leadPath, {
+      'first_name': firstName,
+      'status': status,
+      if (lastName != null && lastName.isNotEmpty) 'last_name': lastName,
+      if (mobileNo != null && mobileNo.isNotEmpty) 'mobile_no': mobileNo,
+      if (email != null && email.isNotEmpty) 'email': email,
+      if (village != null && village.isNotEmpty) 'custom_village': village,
+      if (district != null && district.isNotEmpty) districtField: district,
+      if (workType != null && workType.isNotEmpty) 'custom_work_type': workType,
+    });
+    final lead = CrmLead.fromJson(frappeDoc(data));
+    if (lead.name.isEmpty) throw const AppException(AppError.server);
+    return lead;
   }
 
   /// Throws [AppException].

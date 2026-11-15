@@ -386,6 +386,102 @@ abstract class AppLocalizations {
   /// **'புதிய லீட்'**
   String get newLead;
 
+  /// Heading for the new lead form
+  ///
+  /// In ta, this message translates to:
+  /// **'லீட் விவரங்கள்'**
+  String get newLeadDetails;
+
+  /// Confirmation after a lead is created
+  ///
+  /// In ta, this message translates to:
+  /// **'லீட் உருவாக்கப்பட்டது'**
+  String get leadCreated;
+
+  /// Required first name field for a new lead
+  ///
+  /// In ta, this message translates to:
+  /// **'முதல் பெயர் *'**
+  String get firstName;
+
+  /// Optional last name field
+  ///
+  /// In ta, this message translates to:
+  /// **'கடைசி பெயர்'**
+  String get lastName;
+
+  /// Optional mobile number field
+  ///
+  /// In ta, this message translates to:
+  /// **'கைபேசி எண்'**
+  String get mobileNumber;
+
+  /// Optional email field
+  ///
+  /// In ta, this message translates to:
+  /// **'மின்னஞ்சல் முகவரி'**
+  String get emailAddress;
+
+  /// Village field
+  ///
+  /// In ta, this message translates to:
+  /// **'கிராமம்'**
+  String get village;
+
+  /// District field
+  ///
+  /// In ta, this message translates to:
+  /// **'மாவட்டம்'**
+  String get district;
+
+  /// Work type dropdown label
+  ///
+  /// In ta, this message translates to:
+  /// **'வேலை வகை'**
+  String get workType;
+
+  /// New Well option
+  ///
+  /// In ta, this message translates to:
+  /// **'புதிய கிணறு'**
+  String get workTypeNewWell;
+
+  /// Well Deepening option
+  ///
+  /// In ta, this message translates to:
+  /// **'கிணறு ஆழப்படுத்தல்'**
+  String get workTypeDeepening;
+
+  /// Wall Construction option
+  ///
+  /// In ta, this message translates to:
+  /// **'சுவர் கட்டுமானம்'**
+  String get workTypeWall;
+
+  /// Desilting option
+  ///
+  /// In ta, this message translates to:
+  /// **'தூர்வாருதல்'**
+  String get workTypeDesilting;
+
+  /// Water Survey option
+  ///
+  /// In ta, this message translates to:
+  /// **'நீர் ஆய்வு'**
+  String get workTypeSurvey;
+
+  /// Validation for an invalid phone number
+  ///
+  /// In ta, this message translates to:
+  /// **'சரியான தொலைபேசி எண்ணை உள்ளிடவும்'**
+  String get invalidPhone;
+
+  /// Validation for an invalid email address
+  ///
+  /// In ta, this message translates to:
+  /// **'சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்'**
+  String get invalidEmail;
+
   /// Shown when a lead has no name
   ///
   /// In ta, this message translates to:

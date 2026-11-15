@@ -163,6 +163,54 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newLead => 'New lead';
 
   @override
+  String get newLeadDetails => 'Lead details';
+
+  @override
+  String get leadCreated => 'Lead created';
+
+  @override
+  String get firstName => 'First name *';
+
+  @override
+  String get lastName => 'Last name';
+
+  @override
+  String get mobileNumber => 'Mobile number';
+
+  @override
+  String get emailAddress => 'Email address';
+
+  @override
+  String get village => 'Village';
+
+  @override
+  String get district => 'District';
+
+  @override
+  String get workType => 'Work type';
+
+  @override
+  String get workTypeNewWell => 'New well';
+
+  @override
+  String get workTypeDeepening => 'Well deepening';
+
+  @override
+  String get workTypeWall => 'Wall construction';
+
+  @override
+  String get workTypeDesilting => 'Desilting';
+
+  @override
+  String get workTypeSurvey => 'Water survey';
+
+  @override
+  String get invalidPhone => 'Enter a valid phone number';
+
+  @override
+  String get invalidEmail => 'Enter a valid email address';
+
+  @override
   String get unnamedLead => 'Unnamed lead';
 
   @override

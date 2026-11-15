@@ -9,15 +9,19 @@ import '../auth/sign_out.dart';
 import 'lead_detail_screen.dart';
 import 'lead_model.dart';
 import 'lead_repository.dart';
+import 'new_lead_screen.dart';
 import 'leads_controller.dart';
 import 'widgets/lead_card.dart';
 import 'widgets/status_filter_bar.dart';
 
 class LeadsScreen extends StatefulWidget {
-  const LeadsScreen({super.key, this.controller});
+  const LeadsScreen({super.key, this.controller, this.newLeadRepository});
 
   /// Injectable for tests; created internally otherwise.
   final LeadsController? controller;
+
+  /// Injectable for tests.
+  final LeadRepository? newLeadRepository;
 
   @override
   State<LeadsScreen> createState() => _LeadsScreenState();
@@ -93,11 +97,18 @@ class _LeadsScreenState extends State<LeadsScreen> {
     );
   }
 
-  void _showComingSoon() {
-    final l10n = AppLocalizations.of(context)!;
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(l10n.comingSoon)));
+  Future<void> _openCreateLead() async {
+    final lead = await Navigator.of(context).push<CrmLead>(
+      MaterialPageRoute(
+        builder: (_) => NewLeadScreen(repository: widget.newLeadRepository),
+      ),
+    );
+    if (!mounted || lead == null) return;
+    _controller.refresh(keepItems: true);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context)!.leadCreated)),
+    );
+    _openLead(lead);
   }
 
   Future<void> _loginAgain() => signOutToLogin(context);
@@ -109,7 +120,7 @@ class _LeadsScreenState extends State<LeadsScreen> {
     return Scaffold(
       appBar: _buildAppBar(l10n),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showComingSoon,
+        onPressed: _openCreateLead,
         tooltip: l10n.newLead,
         backgroundColor: AppTheme.secondary,
         foregroundColor: Colors.white,
