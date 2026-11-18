@@ -293,6 +293,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get workType => 'வேலை வகை';
 
   @override
+  String get whenStart => 'எப்போது தொடங்கலாம்';
+
+  @override
   String get workTypeNewWell => 'புதிய கிணறு';
 
   @override

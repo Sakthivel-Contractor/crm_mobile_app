@@ -45,6 +45,7 @@ class FakeDetailRepository extends LeadRepository {
     leadName: 'Ravi Kumar',
     mobileNo: '98400 12345',
     source: 'Walk-in',
+    whenStart: 'Next month',
     status: status,
   );
 
@@ -226,6 +227,7 @@ void main() {
     expect(find.text('WhatsApp'), findsOneWidget);
     expect(find.text('தாமதம்'), findsOneWidget); // overdue badge
     expect(find.text('தொடர்பு கொண்டது'), findsOneWidget); // status chip
+    expect(find.text('எப்போது தொடங்கலாம்: Next month'), findsOneWidget);
 
     // Save without outcome → validation message.
     await tester.ensureVisible(find.text('சேமி'));

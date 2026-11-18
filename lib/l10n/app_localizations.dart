@@ -632,6 +632,12 @@ abstract class AppLocalizations {
   /// **'வேலை வகை'**
   String get workType;
 
+  /// When start field on a CRM lead
+  ///
+  /// In ta, this message translates to:
+  /// **'எப்போது தொடங்கலாம்'**
+  String get whenStart;
+
   /// New Well option
   ///
   /// In ta, this message translates to:

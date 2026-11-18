@@ -289,6 +289,8 @@
   "@district": {"description": "District field"},
   "workType": "வேலை வகை",
   "@workType": {"description": "Work type dropdown label"},
+  "whenStart": "எப்போது தொடங்கலாம்",
+  "@whenStart": {"description": "When start field on a CRM lead"},
   "workTypeNewWell": "புதிய கிணறு",
   "@workTypeNewWell": {"description": "New Well option"},
   "workTypeDeepening": "கிணறு ஆழப்படுத்தல்",

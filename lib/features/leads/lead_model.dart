@@ -12,6 +12,7 @@ class CrmLead {
     this.source,
     this.district,
     this.workType,
+    this.whenStart,
     this.leadOwner,
     this.modified,
     this.creation,
@@ -28,6 +29,7 @@ class CrmLead {
   final String? source;
   final String? district;
   final String? workType;
+  final String? whenStart;
   final String? leadOwner;
   final DateTime? modified;
   final DateTime? creation;
@@ -43,6 +45,7 @@ class CrmLead {
     source: _string(json['source']),
     district: _string(json['custom_district'] ?? json['district']),
     workType: _string(json['custom_work_type'] ?? json['work_type']),
+    whenStart: _string(json['custom_when_start']),
     leadOwner: _string(json['lead_owner']),
     modified: _dateTime(json['modified']),
     creation: _dateTime(json['creation']),

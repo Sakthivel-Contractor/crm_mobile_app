@@ -230,6 +230,7 @@ void main() {
         mobileNo: '9840012345',
         district: 'Madurai',
         workType: 'New Well',
+        whenStart: 'Next month',
       );
       expect(sent?.method, 'POST');
       expect(sent?.uri.toString(), contains('/api/resource/CRM%20Lead'));
@@ -237,6 +238,7 @@ void main() {
       expect(sent?.data, containsPair('mobile_no', '9840012345'));
       expect(sent?.data, containsPair('custom_district', 'Madurai'));
       expect(sent?.data, containsPair('custom_work_type', 'New Well'));
+      expect(sent?.data, containsPair('custom_when_start', 'Next month'));
       expect(lead.name, 'CRM-LEAD-NEW');
     },
   );

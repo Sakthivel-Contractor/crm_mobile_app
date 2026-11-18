@@ -137,6 +137,7 @@ class LeadRepository {
     String? village,
     String? district,
     String? workType,
+    String? whenStart,
   }) async {
     final data = await _client.postJson(_leadPath, {
       'first_name': firstName,
@@ -147,6 +148,8 @@ class LeadRepository {
       if (village != null && village.isNotEmpty) 'custom_village': village,
       if (district != null && district.isNotEmpty) districtField: district,
       if (workType != null && workType.isNotEmpty) 'custom_work_type': workType,
+      if (whenStart != null && whenStart.isNotEmpty)
+        'custom_when_start': whenStart,
     });
     final lead = CrmLead.fromJson(frappeDoc(data));
     if (lead.name.isEmpty) throw const AppException(AppError.server);

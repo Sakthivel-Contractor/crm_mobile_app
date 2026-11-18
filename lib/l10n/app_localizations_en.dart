@@ -290,6 +290,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get workType => 'Work type';
 
   @override
+  String get whenStart => 'When start';
+
+  @override
   String get workTypeNewWell => 'New well';
 
   @override

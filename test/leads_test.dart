@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,7 +31,13 @@ class FakeLeadRepository extends LeadRepository {
   int total;
   AppError? failWith;
   AppError? createError;
-  ({String firstName, String status, String? mobileNo, String? district})?
+  ({
+    String firstName,
+    String status,
+    String? mobileNo,
+    String? district,
+    String? whenStart,
+  })?
   created;
   final calls = <({String? search, String? status, int start})>[];
   Completer<void>? gate;
@@ -67,6 +74,7 @@ class FakeLeadRepository extends LeadRepository {
     String? village,
     String? district,
     String? workType,
+    String? whenStart,
   }) async {
     if (createError != null) throw AppException(createError!);
     created = (
@@ -74,6 +82,7 @@ class FakeLeadRepository extends LeadRepository {
       status: status,
       mobileNo: mobileNo,
       district: district,
+      whenStart: whenStart,
     );
     return CrmLead(
       name: 'CRM-LEAD-NEW',
@@ -103,9 +112,11 @@ void main() {
         'lead_name': 'Ravi Kumar',
         'mobile_no': '9840000000',
         'status': 'New',
+        'custom_when_start': 'Next month',
         'modified': '2026-10-19 10:15:30.123456',
       });
       expect(lead.displayName, 'Ravi Kumar');
+      expect(lead.whenStart, 'Next month');
       expect(lead.modified, DateTime(2026, 10, 19, 10, 15, 30, 123, 456));
     });
 
@@ -127,6 +138,13 @@ void main() {
   });
 
   group('LeadsController', () {
+    test('lead list does not require the optional when-start field', () {
+      final fields = jsonDecode(
+        LeadRepository.buildLeadListQuery()['fields'] as String,
+      ) as List<dynamic>;
+      expect(fields, isNot(contains('custom_when_start')));
+    });
+
     test('pages by 20 and stops when a page is short', () async {
       final repo = FakeLeadRepository(total: 45);
       final c = LeadsController(repository: repo);
@@ -300,6 +318,11 @@ void main() {
 
       await tester.enterText(find.byType(TextFormField).first, 'Ravi');
       await tester.enterText(find.byType(TextFormField).at(2), '9840012345');
+      await tester.ensureVisible(find.text('When start'));
+      await tester.enterText(
+        find.widgetWithText(TextFormField, 'When start'),
+        'Next month',
+      );
       await tester.ensureVisible(find.text('Save'));
       await tester.tap(find.text('Save'));
       await tester.pumpAndSettle();
@@ -307,6 +330,7 @@ void main() {
       expect(repo.created?.firstName, 'Ravi');
       expect(repo.created?.status, 'New');
       expect(repo.created?.mobileNo, '9840012345');
+      expect(repo.created?.whenStart, 'Next month');
       expect(find.byType(LeadDetailScreen), findsOneWidget);
     });
 

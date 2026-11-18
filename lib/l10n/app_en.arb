@@ -89,6 +89,7 @@
   "village": "Village",
   "district": "District",
   "workType": "Work type",
+  "whenStart": "When start",
   "workTypeNewWell": "New well",
   "workTypeDeepening": "Well deepening",
   "workTypeWall": "Wall construction",

@@ -30,6 +30,7 @@ class _NewLeadScreenState extends State<NewLeadScreen> {
   final _email = TextEditingController();
   final _village = TextEditingController();
   final _district = TextEditingController();
+  final _whenStart = TextEditingController();
 
   static const _workTypes = [
     'New Well',
@@ -62,6 +63,7 @@ class _NewLeadScreenState extends State<NewLeadScreen> {
     _email.dispose();
     _village.dispose();
     _district.dispose();
+    _whenStart.dispose();
     super.dispose();
   }
 
@@ -140,6 +142,7 @@ class _NewLeadScreenState extends State<NewLeadScreen> {
         village: _village.text.trim(),
         district: _district.text.trim(),
         workType: _workType,
+        whenStart: _whenStart.text.trim(),
         status: _status!,
       );
       if (!mounted) return;
@@ -281,6 +284,16 @@ class _NewLeadScreenState extends State<NewLeadScreen> {
                             ),
                         ],
                         onChanged: (value) => setState(() => _workType = value),
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: _whenStart,
+                        decoration: InputDecoration(labelText: l10n.whenStart),
+                        textCapitalization: TextCapitalization.sentences,
+                        textInputAction: TextInputAction.next,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(140),
+                        ],
                       ),
                       const SizedBox(height: 12),
                       DropdownButtonFormField<String>(

@@ -161,7 +161,10 @@ class LeadHeaderCard extends StatelessWidget {
                     if (lead.workType != null && lead.workType!.isNotEmpty) ...[
                       const SizedBox(height: 6),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: AppTheme.primary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(6),
@@ -172,6 +175,15 @@ class LeadHeaderCard extends StatelessWidget {
                             color: AppTheme.primary,
                             fontWeight: FontWeight.w600,
                           ),
+                        ),
+                      ),
+                    ],
+                    if (lead.whenStart != null) ...[
+                      const SizedBox(height: 6),
+                      Text(
+                        '${l10n.whenStart}: ${lead.whenStart}',
+                        style: text.bodySmall?.copyWith(
+                          color: AppTheme.textMuted,
                         ),
                       ),
                     ],
